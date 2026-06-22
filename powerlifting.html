@@ -945,21 +945,25 @@
         <div class="form-row">
           <div class="form-group">
             <label>First Name</label>
-            <input type="text" placeholder="Alex" required>
+            <input type="text" name="first_name" placeholder="Alex" required>
           </div>
           <div class="form-group">
             <label>Last Name</label>
-            <input type="text" placeholder="Johnson" required>
+            <input type="text" name="last_name" placeholder="Johnson" required>
           </div>
         </div>
         <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" name="email" placeholder="alex@email.com" required>
+        </div>
+        <div class="form-group">
           <label>Instagram Handle</label>
-          <input type="text" placeholder="@yourhandle">
+          <input type="text" name="instagram" placeholder="@yourhandle">
         </div>
         <div class="form-row">
           <div class="form-group">
             <label>Weight Class</label>
-            <select>
+            <select name="weight_class">
               <option value="">Select weight class</option>
               <optgroup label="Male">
                 <option>53kg</option><option>59kg</option><option>66kg</option><option>74kg</option>
@@ -973,7 +977,7 @@
           </div>
           <div class="form-group">
             <label>Experience Level</label>
-            <select>
+            <select name="experience_level">
               <option value="">Select level</option>
               <option>Brand new to powerlifting</option>
               <option>Training 6–12 months</option>
@@ -984,7 +988,7 @@
         </div>
         <div class="form-group">
           <label>Package Interest</label>
-          <select>
+          <select name="package_interest">
             <option value="">What are you looking for?</option>
             <option>Full Coaching (program + check-ins)</option>
             <option>Program Only</option>
@@ -994,11 +998,12 @@
         </div>
         <div class="form-group">
           <label>Current Lifts & Goals</label>
-          <textarea placeholder="Tell us your current squat / bench / deadlift, any upcoming meets, and what you want to achieve..."></textarea>
+          <textarea name="lifts_and_goals" placeholder="Tell us your current squat / bench / deadlift, any upcoming meets, and what you want to achieve..."></textarea>
         </div>
         <button type="submit" class="btn-primary" style="border:none;cursor:pointer;font-size:0.9rem;padding:18px 36px;width:100%;">
           Submit Application
         </button>
+        <div class="resource-msg" id="contact-form-msg"></div>
       </form>
     </div>
   </div>
@@ -1053,18 +1058,44 @@
   }, { threshold: 0.12 });
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     const btn = e.target.querySelector('button[type="submit"]');
-    btn.textContent = '✓ Application Sent! We\'ll be in touch.';
-    btn.style.background = '#166534';
-    btn.style.clipPath = 'none';
-    setTimeout(() => {
+    const msg = document.getElementById('contact-form-msg');
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries());
+
+    try {
+      const res = await fetch('https://formspree.io/f/mnjynpzv', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ _subject: 'Next Level Powerlifting — New Application', ...data })
+      });
+
+      if (res.ok) {
+        btn.textContent = '✓ Application Sent! We\'ll be in touch.';
+        btn.style.background = '#166534';
+        btn.style.clipPath = 'none';
+        setTimeout(() => {
+          btn.textContent = 'Submit Application';
+          btn.style.background = 'var(--red)';
+          btn.style.clipPath = 'polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%)';
+          btn.disabled = false;
+          e.target.reset();
+        }, 5000);
+      } else {
+        msg.textContent = 'Something went wrong. Please try again.';
+        btn.textContent = 'Submit Application';
+        btn.disabled = false;
+      }
+    } catch (err) {
+      msg.textContent = 'Network error. Please try again.';
       btn.textContent = 'Submit Application';
-      btn.style.background = 'var(--red)';
-      btn.style.clipPath = 'polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%)';
-      e.target.reset();
-    }, 5000);
+      btn.disabled = false;
+    }
   }
 
   let selectedVersion = 'auto';

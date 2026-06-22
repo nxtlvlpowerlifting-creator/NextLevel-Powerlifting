@@ -413,20 +413,20 @@
         <div class="form-row">
           <div class="form-group">
             <label>First Name</label>
-            <input type="text" placeholder="Alex" required>
+            <input type="text" name="first_name" placeholder="Alex" required>
           </div>
           <div class="form-group">
             <label>Last Name</label>
-            <input type="text" placeholder="Johnson" required>
+            <input type="text" name="last_name" placeholder="Johnson" required>
           </div>
         </div>
         <div class="form-group">
           <label>Email Address</label>
-          <input type="email" placeholder="alex@email.com" required>
+          <input type="email" name="email" placeholder="alex@email.com" required>
         </div>
         <div class="form-group">
           <label>Primary Goal</label>
-          <select>
+          <select name="primary_goal">
             <option value="">Select a goal</option>
             <option>Build strength</option>
             <option>Lose fat / body recomposition</option>
@@ -437,7 +437,7 @@
         </div>
         <div class="form-group">
           <label>Experience Level</label>
-          <select>
+          <select name="experience_level">
             <option value="">Select level</option>
             <option>Brand new to training</option>
             <option>Training 6–12 months</option>
@@ -447,7 +447,7 @@
         </div>
         <div class="form-group">
           <label>Tell us about your goals</label>
-          <textarea placeholder="What are you hoping to achieve, and what's your current training routine like?"></textarea>
+          <textarea name="goals_notes" placeholder="What are you hoping to achieve, and what's your current training routine like?"></textarea>
         </div>
         <button type="submit" class="btn-primary" style="border:none;cursor:pointer;font-size:0.9rem;padding:18px 36px;width:100%;">
           Submit Application

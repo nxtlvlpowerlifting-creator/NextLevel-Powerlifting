@@ -37,20 +37,20 @@
     min-height: 100vh;
     display: flex; flex-direction: column;
     align-items: center; justify-content: center;
-    padding: 60px 5vw;
+    padding: 40px 5vw;
     text-align: center;
   }
-  .landing-logo { height: 90px; width: auto; margin-bottom: 24px; opacity: 0.95; }
+  .landing-logo { height: 70px; width: auto; margin-bottom: 16px; opacity: 0.95; }
   .landing-eyebrow {
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 0.8rem; letter-spacing: 0.35em; text-transform: uppercase;
-    color: var(--grey); margin-bottom: 14px;
+    color: var(--grey); margin-bottom: 10px;
   }
   h1.landing-title {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(2.8rem, 7vw, 5rem);
+    font-size: clamp(2rem, 10vw, 5rem);
     letter-spacing: 0.03em; line-height: 0.95;
-    margin-bottom: 50px;
+    margin-bottom: 28px;
   }
   .landing-title span { color: var(--teal); }
   .choice-grid {
@@ -59,7 +59,7 @@
   }
   .choice-card {
     position: relative; overflow: hidden;
-    padding: 56px 36px;
+    padding: 36px 24px;
     text-decoration: none; color: var(--white);
     background: #111;
     border: 1px solid #222;
@@ -69,7 +69,7 @@
   .choice-card:hover { transform: translateY(-6px); }
   .choice-card.pl:hover { border-color: var(--red); }
   .choice-card.pt:hover { border-color: var(--teal); }
-  .choice-icon { font-size: 2.6rem; margin-bottom: 18px; }
+  .choice-icon { font-size: 2.6rem; margin-bottom: 18px; flex-shrink: 0; }
   .choice-card h2 {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 2.1rem; letter-spacing: 0.04em; margin-bottom: 12px;
@@ -99,7 +99,17 @@
   }
 
   @media (max-width: 720px) {
-    .choice-grid { grid-template-columns: 1fr; }
+    .landing { padding: 28px 4vw; justify-content: flex-start; padding-top: 40px; }
+    .landing-logo { height: 52px; margin-bottom: 12px; }
+    .landing-eyebrow { font-size: 0.7rem; margin-bottom: 8px; }
+    h1.landing-title { font-size: clamp(1.8rem, 9vw, 2.8rem); margin-bottom: 20px; }
+    .choice-grid { grid-template-columns: 1fr; gap: 6px; }
+    .choice-icon { display: none; }
+    .choice-card { padding: 22px 20px; text-align: left; align-items: flex-start; }
+    .choice-card h2 { font-size: 1.6rem; margin-bottom: 6px; }
+    .choice-card p { font-size: 0.84rem; margin-bottom: 14px; }
+    .choice-cta { font-size: 0.75rem; padding: 8px 16px; }
+    .landing-footer { font-size: 0.6rem; margin-top: 20px; }
   }
 </style>
 </head>
